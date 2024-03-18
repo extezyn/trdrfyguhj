@@ -20,11 +20,79 @@ namespace Figentity
     /// </summary>
     public partial class Page3 : Page
     {
-        private FitnessClub1Entities fit = new FitnessClub1Entities();
+        private FitnessClub1Entities trainers = new FitnessClub1Entities();
+
         public Page3()
         {
             InitializeComponent();
-            getgrid.ItemsSource = fit.Classes.ToList();
+            ThirdGrid.ItemsSource = trainers.Members.ToList();
+        }
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            Classes classes = new Classes();
+            classes.ClassDate = Convert.ToDateTime(classDate);
+            classes.MemberID = Convert.ToInt32(MemberId);
+            classes.TrainerID = Convert.ToInt32(TrainerId);
+
+            trainers.Classes.Add(trainers);
+
+            trainers.SaveChanges();
+            ThirdGrid.ItemsSource = trainers.Classes.ToList();
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            if (ThirdGrid.SelectedItem != null)
+            {
+                var selected = ThirdGrid.SelectedItem as Members;
+                selected.FirstName = MemberId.Text;
+                selected.LastName = TrainerId.Text;
+
+            }
+
+            trainers.SaveChanges();
+            ThirdGrid.ItemsSource = trainers.Classes.ToList();
+
+
+
+
+
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                trainers.Members.Remove(ThirdGrid.SelectedItem as Members);
+                trainers.SaveChanges();
+                ThirdGrid.ItemsSource = trainers.Classes.ToList();
+            }
+            catch
+            {
+                MessageBox.Show("анлак");
+            }
+
+        }
+
+        private void ierach_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FirstGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selected = ThirdGrid.SelectedItem as Members;
+                selected.FirstName = MemberId.Text;
+                selected.LastName = TrainerId.Text;
+            }
+            catch
+            {
+                MessageBox.Show("На пустое не тыкать");
+            }
+
         }
 
     }

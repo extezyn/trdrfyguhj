@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Figentity
 {
@@ -24,7 +25,74 @@ namespace Figentity
         public Page1()
         {
             InitializeComponent();
-            getgrid.ItemsSource = fit.Members.ToList();
+            FirstGrid.ItemsSource = fit.Members.ToList();
+        }
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            Members mem = new Members();
+            mem.FirstName = FN.Text;
+            mem.LastName = LN.Text;
+
+            fit.Members.Add(mem);
+
+            fit.SaveChanges();
+            FirstGrid.ItemsSource = fit.Members.ToList();
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            if (FirstGrid.SelectedItem != null)
+            {
+                var selected = FirstGrid.SelectedItem as Members;
+
+                selected.FirstName = FN.Text;
+                selected.LastName = LN.Text;
+              
+            }
+
+            fit.SaveChanges();
+            FirstGrid.ItemsSource = fit.Members.ToList();
+
+
+
+          
+
+         
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                fit.Members.Remove(FirstGrid.SelectedItem as Members);
+                fit.SaveChanges();
+                FirstGrid.ItemsSource = fit.Members.ToList();
+            }
+            catch
+            {
+                MessageBox.Show("анлак");
+            }
+
+        }
+
+        private void ierach_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FirstGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selected = FirstGrid.SelectedItem as Members;
+                FN.Text = selected.FirstName;
+                LN.Text = selected.FirstName;
+            }
+            catch
+            {
+                MessageBox.Show("На пустое не тыкать");
+            }
+
         }
     }
 }

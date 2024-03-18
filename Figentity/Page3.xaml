@@ -9,6 +9,17 @@
       Title="Page3">
 
     <Grid>
-        <DataGrid x:Name="getgrid" />
+        <DataGrid x:Name="ThirdGrid" IsReadOnly="True" SelectionChanged="ThirdGrid_SelectionChanged"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="30">
+            <TextBox x:Name="classDate" Margin="5" Text="Дата"/>
+            <TextBox x:Name="MemberId" Margin="5" Text="Участник"/>
+            <TextBox x:Name="TrainerId" Margin="5" Text="Дата"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Добавить" Margin="5" Click="Insert_Click"/>
+            <Button Content="Изменить" Margin="5" Click="Update_Click"/>
+            <Button Content="Удалить" Margin="5" Click="Delete_Click"/>
+        </StackPanel>
+
     </Grid>
 </Page>

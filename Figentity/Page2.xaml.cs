@@ -20,11 +20,80 @@ namespace Figentity
     /// </summary>
     public partial class Page2 : Page
     {
-        private FitnessClub1Entities fit = new FitnessClub1Entities();
+        private FitnessClub1Entities trainers = new FitnessClub1Entities();
+
         public Page2()
         {
             InitializeComponent();
-            getgrid.ItemsSource = fit.Trainers.ToList();
+            SecondGrid.ItemsSource = trainers.Trainers.ToList();
         }
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            Members mem = new Members();
+            mem.FirstName = FN.Text;
+            mem.LastName = LN.Text;
+
+            trainers.Members.Add(mem);
+
+            trainers.SaveChanges();
+            SecondGrid.ItemsSource = trainers.Trainers.ToList();
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            if (SecondGrid.SelectedItem != null)
+            {
+                var selected = SecondGrid.SelectedItem as Members;
+
+                selected.FirstName = FN.Text;
+                selected.LastName = LN.Text;
+
+            }
+
+            trainers.SaveChanges();
+            SecondGrid.ItemsSource = trainers.Trainers.ToList();
+
+
+
+
+
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                trainers.Members.Remove(SecondGrid.SelectedItem as Members);
+                trainers.SaveChanges();
+                SecondGrid.ItemsSource = trainers.Trainers.ToList();
+            }
+            catch
+            {
+                MessageBox.Show("анлак");
+            }
+
+        }
+
+        private void ierach_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FirstGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selected = SecondGrid.SelectedItem as Members;
+                FN.Text = selected.FirstName;
+                LN.Text = selected.FirstName;
+            }
+            catch
+            {
+                MessageBox.Show("На пустое не тыкать");
+            }
+
+        }
+
     }
 }

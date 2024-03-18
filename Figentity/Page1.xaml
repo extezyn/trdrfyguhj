@@ -9,6 +9,16 @@
       Title="Page1">
 
     <Grid>
-        <DataGrid x:Name="getgrid" />
+        <DataGrid x:Name="FirstGrid" IsReadOnly="True" SelectionChanged="FirstGrid_SelectionChanged"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="30">
+            <TextBox x:Name="FN" Margin="5" Text="Имя"/>
+            <TextBox x:Name="LN" Margin="5" Text="Фамилия"/>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Добавить" Margin="5" Click="Insert_Click"/>
+            <Button Content="Изменить" Margin="5" Click="Update_Click"/>
+            <Button Content="Удалить" Margin="5" Click="Delete_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
